@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Categories from '../components/Categories';
 import ProductList from '../components/ProductList';
-import { getProductsFromQuery } from '../services/api';
+import { getProductsFromQuery, getProductsFromCategories } from '../services/api';
 
 import '../styles/home.css';
 
@@ -28,6 +28,14 @@ class Home extends React.Component {
     });
   }
 
+  searchProductByCategories = async (categorieId) => {
+    const products = await getProductsFromCategories(categorieId);
+    this.setState({
+      productList: products,
+      hasClicked: true,
+    });
+  }
+
   render() {
     const {
       inputSearch,
@@ -37,7 +45,7 @@ class Home extends React.Component {
 
     return (
       <div className="homeContainer">
-        <Categories />
+        <Categories searchProducts={ this.searchProductByCategories } />
         <div className="homeContentContainer">
           <div className="searchContainer">
             <label htmlFor="input-search">
