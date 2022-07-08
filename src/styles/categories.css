@@ -1,0 +1,6 @@
+.categoriesContainer {
+  display: flex;
+  flex-basis: 20rem;
+  flex-direction: column;
+  min-width: 20rem;
+}

@@ -1,6 +1,8 @@
 import React from 'react';
 import { getCategories } from '../services/api';
 
+import '../styles/categories.css';
+
 class Categories extends React.Component {
   constructor() {
     super();
@@ -20,7 +22,7 @@ class Categories extends React.Component {
     const { categories } = this.state;
 
     return (
-      <div>
+      <div className="categoriesContainer">
         { categories.map((categorie) => (
           <button type="button" key={ categorie.id } data-testid="category">
             {categorie.name}
