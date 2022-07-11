@@ -10,7 +10,7 @@ class ProductList extends React.Component {
       cart = [];
     }
     cart.push(event.target.id);
-    localStorage.setItem(('productId', JSON.stringify(cart)));
+    localStorage.setItem('productId', JSON.stringify(cart));
   }
 
   render() {
@@ -23,11 +23,10 @@ class ProductList extends React.Component {
           ? <p>Nenhum produto foi encontrado</p>
           : (
             productList.map((product) => (
-              <>
+              <div key={ product.id }>
                 <Link
                   data-testid="product-detail-link"
                   to={ `/productDetails/${product.id}` }
-                  key={ product.id }
                 >
                   <div data-testid="product">
                     <h3>{ product.title }</h3>
@@ -47,7 +46,7 @@ class ProductList extends React.Component {
                   {' '}
 
                 </button>
-              </>
+              </div>
             ))
           )}
       </div>
