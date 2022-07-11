@@ -14,10 +14,10 @@ class Cart extends React.Component {
 
   componentDidMount() {
     const list = JSON.parse(localStorage.getItem('productId'));
-    console.log(list);
-    this.setState({ cartList: list });
+    this.setState({ cartList: list }, () => {
+      this.createCart();
+    });
     this.countProducts(list);
-    this.createCart();
   }
 
   countProducts = (list) => {
@@ -27,22 +27,30 @@ class Cart extends React.Component {
   }
 
   createCart = () => {
-    const {cartList} = this.state;
+    const { cartList } = this.state;
+    const uniqueCartList = [...new Set(cartList)];
     const list = [];
-    cartList.forEach( async (id) => {
+    uniqueCartList.forEach(async (id) => {
       list.push(await getProductsFromId(id));
-    })
-    this.setState({myCart: list});
-    
+    });
+    this.setState({ myCart: list });
   }
 
   render() {
     const { countItems, cartList, myCart } = this.state;
+    console.log(myCart);
     return (
       <div>
         {!cartList
           ? <p data-testid="shopping-cart-empty-message"> Seu carrinho está vazio </p>
           : (
+            myCart.map((item) => (
+              <div key={ item.id }>
+                <p>
+                  {item.title}
+                </p>
+              </div>
+            ))
           )}
       </div>
     );
