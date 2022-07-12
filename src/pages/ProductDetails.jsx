@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Proptypes, { shape } from 'prop-types';
 import { getProductsFromId } from '../services/api';
+import AvaliationForm from '../components/AvaliationForm';
 
 class ProductDetails extends React.Component {
   constructor() {
@@ -49,6 +50,7 @@ class ProductDetails extends React.Component {
         >
           Adicionar ao Carrinho
         </button>
+        <AvaliationForm productId={ product.id } />
       </div>
     );
   }
