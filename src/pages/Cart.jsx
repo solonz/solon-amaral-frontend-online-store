@@ -31,6 +31,7 @@ class Cart extends React.Component {
   }
 
   getProductsQuantity = (productsId) => {
+    if (!productsId) return {};
     const productsQuantity = {};
     productsId.forEach((x) => { productsQuantity[x] = (productsQuantity[x] || 0) + 1; });
     return productsQuantity;
@@ -41,7 +42,7 @@ class Cart extends React.Component {
     return (
       <div>
         { productsArr.length === 0
-          ? <p>Seu carrinho está vazio</p>
+          ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
           : (
             productsArr.map((product) => (
               <div key={ product.id }>
