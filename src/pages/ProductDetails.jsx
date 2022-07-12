@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { shape } from 'prop-types';
 import { getProductsFromId } from '../services/api';
 
@@ -19,13 +20,11 @@ class ProductDetails extends React.Component {
   getProductDetail = async (id) => {
     const productId = await getProductsFromId(id);
     this.setState({
-      product: productId }, () => { console.log(id); });
-    console.log(productId);
+      product: productId });
   }
 
   addToCart = (event) => {
     let cart = JSON.parse(localStorage.getItem('productId'));
-    console.log(cart);
     if (!cart) {
       cart = [];
     }
@@ -37,6 +36,12 @@ class ProductDetails extends React.Component {
     const { product } = this.state;
     return (
       <div>
+        <Link
+          data-testid="shopping-cart-button"
+          to="/cart"
+        >
+          Carrinho
+        </Link>
         <p> Detalhes do Produto </p>
         <h2 data-testid="product-detail-name">
           {' '}
@@ -49,6 +54,7 @@ class ProductDetails extends React.Component {
         <button
           data-testid="product-detail-add-to-cart"
           type="button"
+          id={ product.id }
           onClick={ this.addToCart }
         >
           Adicionar ao Carrinho

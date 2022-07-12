@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 class ProductList extends React.Component {
   addToCart = (event) => {
     let cart = JSON.parse(localStorage.getItem('productId'));
-    console.log(cart);
     if (!cart) {
       cart = [];
     }
