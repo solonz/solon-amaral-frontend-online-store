@@ -23,6 +23,16 @@ class ProductDetails extends React.Component {
     console.log(productId);
   }
 
+  addToCart = (event) => {
+    let cart = JSON.parse(localStorage.getItem('productId'));
+    console.log(cart);
+    if (!cart) {
+      cart = [];
+    }
+    cart.push(event.target.id);
+    localStorage.setItem('productId', JSON.stringify(cart));
+  }
+
   render() {
     const { product } = this.state;
     return (
@@ -36,6 +46,13 @@ class ProductDetails extends React.Component {
         <img src={ product.thumbnail } alt={ product.title } />
         <h3>{product.price}</h3>
         <h4>{product.warranty}</h4>
+        <button
+          data-testid="product-detail-add-to-cart"
+          type="button"
+          onClick={ this.addToCart }
+        >
+          Adicionar ao Carrinho
+        </button>
       </div>
     );
   }
