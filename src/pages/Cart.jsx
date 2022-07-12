@@ -37,6 +37,27 @@ class Cart extends React.Component {
     return productsQuantity;
   }
 
+  handleChangeQuantity = (event, productId) => {
+    const { productsQuantity } = this.state;
+    // const idProduct = productID;
+    const idButton = event.target.id;
+    if (idButton === 'increase') {
+      const newQuantity = productsQuantity[productId] + 1;
+      this.setState((prevState) => ({
+        productsQuantity: {
+          ...prevState.productsQuantity, [productId]: newQuantity,
+        },
+      }));
+    } else if (productsQuantity[productId] > 1) {
+      const newQuantity = productsQuantity[productId] - 1;
+      this.setState((prevStat) => ({
+        productsQuantity: {
+          ...prevStat.productsQuantity, [productId]: newQuantity,
+        },
+      }));
+    }
+  }
+
   render() {
     const { productsArr, productsQuantity } = this.state;
     return (
@@ -46,12 +67,29 @@ class Cart extends React.Component {
           : (
             productsArr.map((product) => (
               <div key={ product.id }>
+                <img src={ product.thumbnail } alt={ product.name } />
                 <p data-testid="shopping-cart-product-name">
                   {product.title}
                 </p>
+                <button
+                  id="decrease"
+                  type="button"
+                  data-testid="product-decrease-quantity"
+                  onClick={ (event) => this.handleChangeQuantity(event, product.id) }
+                >
+                  -
+                </button>
                 <p data-testid="shopping-cart-product-quantity">
                   { productsQuantity[product.id] }
                 </p>
+                <button
+                  id="increase"
+                  type="button"
+                  data-testid="product-increase-quantity"
+                  onClick={ (event) => this.handleChangeQuantity(event, product.id) }
+                >
+                  +
+                </button>
               </div>
             ))
           )}
