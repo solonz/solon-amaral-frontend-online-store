@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { shape } from 'prop-types';
+import Proptypes, { shape } from 'prop-types';
 import { getProductsFromId } from '../services/api';
 
 class ProductDetails extends React.Component {
@@ -23,17 +23,9 @@ class ProductDetails extends React.Component {
       product: productId });
   }
 
-  addToCart = (event) => {
-    let cart = JSON.parse(localStorage.getItem('productId'));
-    if (!cart) {
-      cart = [];
-    }
-    cart.push(event.target.id);
-    localStorage.setItem('productId', JSON.stringify(cart));
-  }
-
   render() {
     const { product } = this.state;
+    const { addToCart } = this.props;
     return (
       <div>
         <Link
@@ -44,9 +36,7 @@ class ProductDetails extends React.Component {
         </Link>
         <p> Detalhes do Produto </p>
         <h2 data-testid="product-detail-name">
-          {' '}
           {product.title}
-          {' '}
         </h2>
         <img src={ product.thumbnail } alt={ product.title } />
         <h3>{product.price}</h3>
@@ -55,7 +45,7 @@ class ProductDetails extends React.Component {
           data-testid="product-detail-add-to-cart"
           type="button"
           id={ product.id }
-          onClick={ this.addToCart }
+          onClick={ () => addToCart(product) }
         >
           Adicionar ao Carrinho
         </button>
@@ -65,7 +55,8 @@ class ProductDetails extends React.Component {
 }
 
 ProductDetails.propTypes = {
-  match: shape({}).isRequired,
-};
+  match: shape({}),
+  addToCart: Proptypes.func,
+}.isRequired;
 
 export default ProductDetails;

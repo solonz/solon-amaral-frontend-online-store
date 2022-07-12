@@ -5,14 +5,47 @@ import Home from './pages/Home';
 import Cart from './pages/Cart';
 import ProductDetails from './pages/ProductDetails';
 
-function App() {
-  return (
-    <BrowserRouter>
-      <Route path="/" exact component={ Home } />
-      <Route path="/cart" component={ Cart } />
-      <Route path="/productDetails/:id" component={ ProductDetails } />
-    </BrowserRouter>
-  );
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      cartList: [],
+    };
+  }
+
+  addToCart = (product) => {
+    const { cartList } = this.state;
+    const exists = cartList.some((item) => item.id === product.id);
+
+    if (exists) {
+      product.quantity += 1;
+    } else {
+      product.quantity = 1;
+      this.setState((prevState) => ({
+        cartList: [...prevState.cartList, product],
+      }));
+    }
+  }
+
+  render() {
+    const { cartList } = this.state;
+
+    return (
+      <BrowserRouter>
+        <Route path="/" exact render={ () => <Home addToCart={ this.addToCart } /> } />
+        <Route path="/cart" render={ () => <Cart cartList={ cartList } /> } />
+        <Route
+          path="/productDetails/:id"
+          render={ (routeProps) => (
+            <ProductDetails
+              addToCart={ this.addToCart }
+              cartList={ cartList }
+              { ...routeProps }
+            />) }
+        />
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;

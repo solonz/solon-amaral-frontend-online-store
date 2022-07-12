@@ -3,19 +3,13 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 class ProductList extends React.Component {
-  addToCart = (event) => {
-    let cart = JSON.parse(localStorage.getItem('productId'));
-    if (!cart) {
-      cart = [];
-    }
-    cart.push(event.target.id);
-    localStorage.setItem('productId', JSON.stringify(cart));
-  }
-
   render() {
     const {
       productList,
     } = this.props;
+
+    const { addToCart } = this.props;
+
     return (
       <div>
         { productList.length === 0
@@ -38,7 +32,7 @@ class ProductList extends React.Component {
                   data-testid="product-add-to-cart"
                   id={ product.id }
                   type="button"
-                  onClick={ this.addToCart }
+                  onClick={ () => addToCart(product) }
                 >
                   Comprar
                 </button>
@@ -51,7 +45,7 @@ class ProductList extends React.Component {
 }
 
 ProductList.propTypes = {
-  productList: PropTypes.array,
+  addToCart: PropTypes.func,
 }.isRequired;
 
 export default ProductList;
