@@ -41,10 +41,7 @@ class ProductList extends React.Component {
                   type="button"
                   onClick={ this.addToCart }
                 >
-                  {' '}
                   Comprar
-                  {' '}
-
                 </button>
               </div>
             ))
