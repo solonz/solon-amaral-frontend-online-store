@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 
 class Cart extends React.Component {
   render() {
-    const { cartList } = this.props;
+    const {
+      cartList,
+      handleQuantity,
+    } = this.props;
     return (
       <div>
         { cartList.length === 0
@@ -19,7 +22,7 @@ class Cart extends React.Component {
                   id="decrease"
                   type="button"
                   data-testid="product-decrease-quantity"
-                  onClick={ (event) => this.handleChangeQuantity(event, product.id) }
+                  onClick={ (event) => handleQuantity(event, product.id) }
                 >
                   -
                 </button>
@@ -30,7 +33,7 @@ class Cart extends React.Component {
                   id="increase"
                   type="button"
                   data-testid="product-increase-quantity"
-                  onClick={ (event) => this.handleChangeQuantity(event, product.id) }
+                  onClick={ (event) => handleQuantity(event, product.id) }
                 >
                   +
                 </button>

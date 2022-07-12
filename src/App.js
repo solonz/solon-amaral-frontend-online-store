@@ -27,13 +27,31 @@ class App extends React.Component {
     }
   }
 
+  handleQuantity = (event, id) => {
+    const { cartList } = this.state;
+    console.log(id);
+    console.log(event.target.id);
+    if (event.target.id === 'increase') {
+      cartList.find((element) => element.id === id).quantity += 1;
+    } else if (cartList.find((element) => element.id === id).quantity > 1) {
+      cartList.find((element) => element.id === id).quantity -= 1;
+    }
+    this.setState({ cartList });
+  }
+
   render() {
     const { cartList } = this.state;
 
     return (
       <BrowserRouter>
         <Route path="/" exact render={ () => <Home addToCart={ this.addToCart } /> } />
-        <Route path="/cart" render={ () => <Cart cartList={ cartList } /> } />
+        <Route
+          path="/cart"
+          render={ () => (<Cart
+            cartList={ cartList }
+            handleQuantity={ this.handleQuantity }
+          />) }
+        />
         <Route
           path="/productDetails/:id"
           render={ (routeProps) => (
