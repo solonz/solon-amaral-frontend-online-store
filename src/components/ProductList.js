@@ -23,11 +23,10 @@ class ProductList extends React.Component {
           ? <p>Nenhum produto foi encontrado</p>
           : (
             productList.map((product) => (
-              <>
+              <div key={ product.id }>
                 <Link
                   data-testid="product-detail-link"
                   to={ `/productDetails/${product.id}` }
-                  key={ product.id }
                 >
                   <div data-testid="product">
                     <h3>{ product.title }</h3>
@@ -42,12 +41,9 @@ class ProductList extends React.Component {
                   type="button"
                   onClick={ this.addToCart }
                 >
-                  {' '}
                   Comprar
-                  {' '}
-
                 </button>
-              </>
+              </div>
             ))
           )}
       </div>

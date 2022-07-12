@@ -23,8 +23,6 @@ class ProductDetails extends React.Component {
     console.log(productId);
   }
 
-  //   nome, imagem, preço, espec tec
-
   render() {
     const { product } = this.state;
     return (
