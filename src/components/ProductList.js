@@ -10,7 +10,7 @@ class ProductList extends React.Component {
       cart = [];
     }
     cart.push(event.target.id);
-    localStorage.setItem(('productId', JSON.stringify(cart)));
+    localStorage.setItem('productId', JSON.stringify(cart));
   }
 
   render() {
