@@ -14,6 +14,13 @@ class App extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const valorLocal = JSON.parse(localStorage.getItem('comments'));
+    if (valorLocal !== null) {
+      this.setState({ evaluator: valorLocal });
+    }
+  }
+
   addToCart = (product) => {
     const { cartList } = this.state;
     const exists = cartList.some((item) => item.id === product.id);
@@ -44,6 +51,7 @@ class App extends React.Component {
         evaluator,
       },
     }));
+    localStorage.setItem('comments', JSON.stringify(evaluator));
   }
 
   handleQuantity = (event, id) => {

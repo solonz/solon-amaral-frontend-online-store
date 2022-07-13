@@ -5,9 +5,6 @@ class Comments extends React.Component {
   render() {
     const { evaluator, productId } = this.props;
     const comments = evaluator[productId];
-    if (comments !== undefined) {
-      console.log(typeof comments[0].rate);
-    }
 
     return (
       <div className="commentsContainer">
