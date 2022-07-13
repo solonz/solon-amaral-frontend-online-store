@@ -10,7 +10,7 @@ class App extends React.Component {
     super();
     this.state = {
       cartList: [],
-      evaluator: [],
+      evaluator: {},
     };
   }
 
@@ -28,6 +28,24 @@ class App extends React.Component {
     }
   }
 
+  addToEvaluator = (email, rate, description, id) => {
+    const { evaluator } = this.state;
+    const commentObj = {
+      email,
+      rate,
+      description,
+    };
+    if (!evaluator[id]) { evaluator[id] = []; }
+    evaluator[id].push(commentObj);
+
+    this.setState((prevState) => ({
+      evaluator: {
+        ...prevState.evaluator,
+        evaluator,
+      },
+    }));
+  }
+
   handleQuantity = (event, id) => {
     const { cartList } = this.state;
     console.log(id);
@@ -41,7 +59,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { cartList } = this.state;
+    const { cartList, evaluator } = this.state;
 
     return (
       <BrowserRouter>
@@ -59,6 +77,8 @@ class App extends React.Component {
             <ProductDetails
               addToCart={ this.addToCart }
               cartList={ cartList }
+              evaluator={ evaluator }
+              addToEvaluator={ this.addToEvaluator }
               { ...routeProps }
             />) }
         />

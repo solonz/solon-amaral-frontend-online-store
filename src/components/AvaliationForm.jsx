@@ -1,11 +1,12 @@
 import React from 'react';
+import Proptypes from 'prop-types';
 
 class AvaliationForm extends React.Component {
   constructor() {
     super();
     this.state = {
       inputEmail: '',
-      inputSelect: '',
+      inputSelect: '1',
       inputEvaluation: '',
     };
   }
@@ -15,6 +16,18 @@ class AvaliationForm extends React.Component {
     const { value } = target;
     this.setState({
       [name]: value,
+    });
+  }
+
+  handleSubmmit = () => {
+    const { inputEmail, inputSelect, inputEvaluation } = this.state;
+    const { addToEvaluator, productId } = this.props;
+
+    addToEvaluator(inputEmail, inputSelect, inputEvaluation, productId);
+    this.setState({
+      inputEmail: '',
+      inputSelect: '1',
+      inputEvaluation: '',
     });
   }
 
@@ -59,6 +72,7 @@ class AvaliationForm extends React.Component {
           type="button"
           data-testid="submit-review-btn"
           id="submit-review-btn"
+          onClick={ this.handleSubmmit }
         >
           Avaliar
         </button>
@@ -66,5 +80,10 @@ class AvaliationForm extends React.Component {
     );
   }
 }
+
+AvaliationForm.propTypes = {
+  addToEvaluator: Proptypes.func,
+  productId: Proptypes.string,
+}.isRequired;
 
 export default AvaliationForm;

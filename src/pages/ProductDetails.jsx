@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Proptypes, { shape } from 'prop-types';
 import { getProductsFromId } from '../services/api';
 import AvaliationForm from '../components/AvaliationForm';
+import Comments from '../components/Comments';
 
 class ProductDetails extends React.Component {
   constructor() {
@@ -26,7 +27,7 @@ class ProductDetails extends React.Component {
 
   render() {
     const { product } = this.state;
-    const { addToCart } = this.props;
+    const { addToCart, addToEvaluator, evaluator } = this.props;
     return (
       <div>
         <Link
@@ -50,7 +51,8 @@ class ProductDetails extends React.Component {
         >
           Adicionar ao Carrinho
         </button>
-        <AvaliationForm productId={ product.id } />
+        <AvaliationForm productId={ product.id } addToEvaluator={ addToEvaluator } />
+        <Comments evaluator={ evaluator } productId={ product.id } />
       </div>
     );
   }
@@ -59,6 +61,8 @@ class ProductDetails extends React.Component {
 ProductDetails.propTypes = {
   match: shape({}),
   addToCart: Proptypes.func,
+  addToEvaluator: Proptypes.func,
+  evaluator: Proptypes.object,
 }.isRequired;
 
 export default ProductDetails;
