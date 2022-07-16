@@ -69,11 +69,13 @@ class App extends React.Component {
 
   handleQuantity = (event, id) => {
     const { cartList } = this.state;
-    console.log(id);
-    console.log(event.target.id);
-    if (event.target.id === 'increase') {
+    const item = cartList.find((element) => element.id === id);
+    if (event.target.id === 'increase' && item.quantity < item.available_quantity) {
       cartList.find((element) => element.id === id).quantity += 1;
-    } else if (cartList.find((element) => element.id === id).quantity > 1) {
+    }
+
+    if (event.target.id === 'decrease'
+    && cartList.find((element) => element.id === id).quantity > 1) {
       cartList.find((element) => element.id === id).quantity -= 1;
     }
     this.setState({ cartList });
