@@ -27,7 +27,7 @@ class ProductDetails extends React.Component {
 
   render() {
     const { product } = this.state;
-    const { addToCart, addToEvaluator, evaluator } = this.props;
+    const { addToCart, addToEvaluator, evaluator, totalQuantity } = this.props;
     return (
       <div>
         <Link
@@ -36,6 +36,9 @@ class ProductDetails extends React.Component {
         >
           Carrinho
         </Link>
+        <p data-testid="shopping-cart-size">
+          {totalQuantity}
+        </p>
         <p> Detalhes do Produto </p>
         <h2 data-testid="product-detail-name">
           {product.title}

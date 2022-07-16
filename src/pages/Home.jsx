@@ -44,7 +44,7 @@ class Home extends React.Component {
       hasClicked,
     } = this.state;
 
-    const { addToCart } = this.props;
+    const { addToCart, totalQuantity } = this.props;
 
     return (
       <div className="homeContainer">
@@ -73,6 +73,9 @@ class Home extends React.Component {
             >
               Carrinho
             </Link>
+            <p data-testid="shopping-cart-size">
+              { totalQuantity }
+            </p>
           </div>
           { hasClicked
             ? <ProductList productList={ productList.results } addToCart={ addToCart } />

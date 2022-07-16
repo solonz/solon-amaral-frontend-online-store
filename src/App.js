@@ -12,6 +12,7 @@ class App extends React.Component {
     this.state = {
       cartList: [],
       evaluator: {},
+      totalQuantity: 0,
     };
   }
 
@@ -19,6 +20,10 @@ class App extends React.Component {
     const valorLocal = JSON.parse(localStorage.getItem('comments'));
     if (valorLocal !== null) {
       this.setState({ evaluator: valorLocal });
+    }
+    const totalQuantity = JSON.parse(localStorage.getItem('totalQuantity'));
+    if (totalQuantity !== null) {
+      this.setState({ totalQuantity });
     }
   }
 
@@ -34,6 +39,13 @@ class App extends React.Component {
         cartList: [...prevState.cartList, product],
       }));
     }
+
+    this.setState((prevState) => ({
+      totalQuantity: prevState.totalQuantity + 1,
+    }), () => {
+      const { totalQuantity } = this.state;
+      localStorage.setItem('totalQuantity', JSON.stringify(totalQuantity));
+    });
   }
 
   addToEvaluator = (email, rate, description, id) => {
@@ -68,11 +80,18 @@ class App extends React.Component {
   }
 
   render() {
-    const { cartList, evaluator } = this.state;
+    const { cartList, evaluator, totalQuantity } = this.state;
 
     return (
       <BrowserRouter>
-        <Route path="/" exact render={ () => <Home addToCart={ this.addToCart } /> } />
+        <Route
+          path="/"
+          exact
+          render={ () => (<Home
+            addToCart={ this.addToCart }
+            totalQuantity={ totalQuantity }
+          />) }
+        />
         <Route
           path="/cart"
           render={ () => (<Cart
@@ -88,6 +107,7 @@ class App extends React.Component {
               cartList={ cartList }
               evaluator={ evaluator }
               addToEvaluator={ this.addToEvaluator }
+              totalQuantity={ totalQuantity }
               { ...routeProps }
             />) }
         />
