@@ -4,6 +4,7 @@ import './App.css';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 import ProductDetails from './pages/ProductDetails';
+import Checkout from './pages/Checkout';
 
 class App extends React.Component {
   constructor() {
@@ -90,6 +91,7 @@ class App extends React.Component {
               { ...routeProps }
             />) }
         />
+        <Route path="/checkout" component={ Checkout } />
       </BrowserRouter>
     );
   }
